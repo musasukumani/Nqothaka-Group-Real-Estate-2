@@ -16,6 +16,7 @@ import {
 import { useEffect, useState } from "react";
 
 const images = {
+  logo: "/nqothaka-group-logo-transparent-cropped.png",
   hero:
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=90",
   serviceLarge:
@@ -198,15 +199,20 @@ function Header() {
     >
       <SectionContainer
         className={cn(
-          "flex h-[72px] items-center justify-between transition-colors duration-300",
+          "flex h-[88px] items-center justify-between transition-colors duration-300",
           scrolled ? "text-black" : "text-white",
         )}
       >
-        <a href="#" className="max-w-[170px] text-sm font-semibold leading-tight">
-          Nqothaka Group
-          <span className={cn("block text-[10px] font-normal", scrolled ? "text-neutral-600" : "text-white/85")}>
-            Real Estate
-          </span>
+        <a
+          href="#"
+          className="inline-flex h-[75px] w-[180px] items-center justify-center drop-shadow-[0_3px_10px_rgb(255_255_255_/_0.72)]"
+          aria-label="Nqothaka Group Real Estate"
+        >
+          <img
+            src={images.logo}
+            alt="Nqothaka Group Real Estate"
+            className="h-[75px] max-w-none object-contain"
+          />
         </a>
 
         <nav
@@ -262,7 +268,11 @@ function Header() {
           )}
         >
           <div className="mb-8 flex items-center justify-between">
-            <span className="font-semibold">Nqothaka Group</span>
+            <img
+              src={images.logo}
+              alt="Nqothaka Group Real Estate"
+              className="h-[85px] max-w-none object-contain"
+            />
             <button
               aria-label="Close menu"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200"
@@ -656,7 +666,7 @@ function Footer() {
           Discover Nature's Wonders with Expert Guidance
         </h2>
         <address className="not-italic text-base leading-relaxed">
-          <p>12345, Gazipur, Dhaka, Road, Bangladesh.</p>
+          <p>90 Rivonia Road, Sandton, Johannesburg, 2196.</p>
           <p className="mt-4">(+1)839-849-8483</p>
           <a className="mt-4 block hover:underline" href="mailto:info@nqothakagroup.co.za">
             info@nqothakagroup.co.za
@@ -671,8 +681,12 @@ function Footer() {
             </a>
           ))}
         </div>
-        <a href="#" className="font-semibold">
-          Nqothaka Group Real Estate
+        <a href="#" aria-label="Nqothaka Group Real Estate">
+          <img
+            src={images.logo}
+            alt="Nqothaka Group Real Estate"
+            className="h-[85px] max-w-none object-contain"
+          />
         </a>
         <div className="flex flex-wrap gap-7">
           {right.map((item) => (
