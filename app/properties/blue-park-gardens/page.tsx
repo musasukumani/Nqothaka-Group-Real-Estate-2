@@ -13,7 +13,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, propertyJsonLd, siteUrl } from "@/lib/seo";
 import BondCalculator from "../BondCalculator";
 import PhotoGallery from "./PhotoGallery";
 
@@ -52,17 +55,46 @@ const property = {
 };
 
 const gallery = [
-  { src: property.image, alt: "Exterior view of Blue Park Gardens" },
-  { src: "/blue-park-bedroom.jpg", alt: "Bedroom with tiled floor and large window" },
-  { src: "/blue-park-bathroom-view.jpg", alt: "Bathroom and adjacent room view" },
-  { src: "/blue-park-bathroom.jpg", alt: "Bathroom basin and toilet" },
-  { src: "/blue-park-lounge.jpg", alt: "Open living area with tiled floor" },
-  { src: "/blue-park-open-plan.jpg", alt: "Open-plan living area and kitchen nook" },
+  { src: property.image, alt: "Exterior of 3 bedroom house for sale in Blue Park Gardens" },
+  { src: "/blue-park-bedroom.jpg", alt: "Bedroom in Blue Park Gardens 3 bedroom home" },
+  { src: "/blue-park-bathroom-view.jpg", alt: "Bathroom view in Blue Park Gardens Johannesburg home" },
+  { src: "/blue-park-bathroom.jpg", alt: "Bathroom in Blue Park Gardens 3 bedroom home" },
+  { src: "/blue-park-lounge.jpg", alt: "Open-plan living area in Blue Park Gardens family home" },
+  { src: "/blue-park-open-plan.jpg", alt: "Open-plan kitchen nook in Blue Park Gardens house" },
 ];
 
+export const metadata: Metadata = {
+  title: "3 Bedroom House for Sale in Blue Park Gardens | Nqothaka Group",
+  description:
+    "3 bedroom House for sale in Blue Park Gardens, Johannesburg or Gauteng. View price, bathrooms, features, location notes, bond estimate, gallery, and book a private viewing.",
+  alternates: {
+    canonical: siteUrl("/properties/blue-park-gardens"),
+  },
+  openGraph: {
+    title: "3 Bedroom House for Sale in Blue Park Gardens | Nqothaka Group",
+    description:
+      "View this 3 bedroom House for sale in Blue Park Gardens with price, gallery, bond estimate, and viewing details.",
+    url: siteUrl("/properties/blue-park-gardens"),
+    type: "website",
+    images: [{ url: property.image, alt: gallery[0].alt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "3 Bedroom House for Sale in Blue Park Gardens | Nqothaka Group",
+    description:
+      "View price, gallery, features, and bond estimate for this 3 bedroom House in Blue Park Gardens.",
+    images: [property.image],
+  },
+};
+
 export default function BlueParkGardensPage() {
+  const residenceSchema = propertyJsonLd("blue-park-gardens");
+  const breadcrumbSchema = breadcrumbJsonLd("blue-park-gardens");
+
   return (
-    <main className="min-h-screen bg-[#f5f2ec] text-black">
+    <main className="min-h-screen bg-[#f8f6f1] text-black">
+      {residenceSchema ? <JsonLd data={residenceSchema} /> : null}
+      {breadcrumbSchema ? <JsonLd data={breadcrumbSchema} /> : null}
       <section className="mx-auto flex w-full max-w-[1180px] flex-col gap-8 px-5 pb-20 pt-6 sm:px-8 lg:px-10">
         <Link
           href="/#property-list"
@@ -103,10 +135,10 @@ export default function BlueParkGardensPage() {
               <span className="rounded-md bg-black px-4 py-2 text-xs font-medium text-white">
                 {property.status}
               </span>
-              <span className="rounded-md bg-[#f5f2ec] px-4 py-2 text-xs font-medium text-neutral-700">
+              <span className="rounded-md bg-[#eee8dd] px-4 py-2 text-xs font-medium text-neutral-700">
                 {property.type}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-md bg-[#f5f2ec] px-4 py-2 text-xs font-medium text-neutral-700">
+              <span className="inline-flex items-center gap-2 rounded-md bg-[#eee8dd] px-4 py-2 text-xs font-medium text-neutral-700">
                 <Images size={14} />
                 {gallery.length} Photos
               </span>
@@ -139,10 +171,10 @@ export default function BlueParkGardensPage() {
             </div>
 
             <a
-              href="tel:+27000000000"
+              href="tel:+27836329886"
               className="mt-9 inline-flex w-full items-center justify-center rounded-lg bg-black px-6 py-4 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-neutral-800"
             >
-              Enquire about this home
+              Book a private viewing in Johannesburg
             </a>
           </aside>
         </div>
@@ -220,7 +252,7 @@ function DetailPill({
   label: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm font-medium text-neutral-800">
+    <div className="flex items-center gap-3 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm font-medium text-neutral-800">
       {icon}
       {label}
     </div>
@@ -237,7 +269,7 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl bg-[#f5f2ec] px-4 py-4">
+    <div className="flex items-center justify-between gap-4 rounded-xl bg-[#eee8dd] px-4 py-4">
       <span className="flex items-center gap-3 text-neutral-600">
         {icon}
         {label}
@@ -258,7 +290,7 @@ function FeatureMetric({ label, value }: { label: string; value: string }) {
 
 function ChecklistItem({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm leading-relaxed text-neutral-700">
+    <div className="flex items-start gap-3 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm leading-relaxed text-neutral-700">
       <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-black" />
       <span>{children}</span>
     </div>

@@ -133,7 +133,7 @@ function NumberField({
   value: number;
 }) {
   return (
-    <label className="grid gap-2 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm font-medium text-neutral-800">
+    <label className="grid gap-2 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm font-medium text-neutral-800">
       <span className="text-xs uppercase tracking-[0.14em] text-neutral-500">
         {label}
       </span>

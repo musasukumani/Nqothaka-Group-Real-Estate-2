@@ -9,16 +9,16 @@ import {
   ChevronDown,
   Globe2,
   Menu,
-  Play,
   Search,
   X,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { faqItems, seoConfig } from "@/lib/seo";
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
 
 const images = {
   logo: "/nqothaka-group-logo-transparent-cropped.png",
-  hero:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=90",
+  hero: "/new-hero.png",
   serviceLarge:
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=90",
   serviceSmall:
@@ -48,13 +48,6 @@ const images = {
 };
 
 const navLinks = ["Home", "About Us", "Property List", "Contact Us"];
-
-const stats = [
-  { value: 100, suffix: "%", decimals: 0, label: "Satisfaction Clients" },
-  { value: 500, suffix: "+", decimals: 0, label: "Property sells" },
-  { value: 150, suffix: "+", decimals: 0, label: "Countries & Cities" },
-  { value: 2, suffix: "+", decimals: 2, label: "Positive reviews" },
-];
 
 const properties = [
   {
@@ -87,34 +80,6 @@ const properties = [
     bedrooms: "3 Bedrooms",
     bathrooms: "2 Bathrooms",
     href: "/properties/north-riding-elias-cassime",
-  },
-];
-
-const faqs = [
-  {
-    question: "What types of properties do you sell?",
-    answer:
-      "We specialize in residential, commercial, and luxury properties, offering a wide range of options to suit every buyer's needs and preferences. We connect you with trusted lenders offering competitive mortgage options and financial advice. We arrange private showings for you to visit and evaluate properties before making a decision. Properties range across different price points, catering to various budgets and investment goals.",
-  },
-  {
-    question: "How do I know if a property is a good investment?",
-    answer:
-      "We compare market trends, rental potential, location strength, property condition, and long-term growth indicators before presenting recommendations.",
-  },
-  {
-    question: "Do I need to hire a real estate agent?",
-    answer:
-      "A dedicated agent helps you evaluate listings, negotiate terms, coordinate inspections, and move through closing with fewer surprises.",
-  },
-  {
-    question: "What's the process for buying a property?",
-    answer:
-      "We start with your goals, arrange financing guidance, shortlist properties, schedule tours, support offers, and guide you through closing.",
-  },
-  {
-    question: "Can I tour a property before purchasing?",
-    answer:
-      "Yes. We arrange private and virtual tours so you can evaluate the property, neighborhood, and fit before making a decision.",
   },
 ];
 
@@ -210,7 +175,7 @@ function Header() {
     <header
       className={cn(
         "fixed left-0 right-0 top-0 z-40 transition duration-300",
-        scrolled && "border-b border-neutral-200/80 bg-white/92 shadow-[0_16px_44px_rgb(0_0_0_/_0.08)] backdrop-blur-xl",
+        scrolled && "border-b border-neutral-200/45 bg-white/65 shadow-[0_16px_44px_rgb(0_0_0_/_0.08)] backdrop-blur-xl",
       )}
     >
       <SectionContainer
@@ -335,7 +300,7 @@ function SearchPanel() {
         {fields.map(([label, placeholder]) => (
           <label key={label} className="block">
             <span className="mb-2 block text-xs font-semibold">{label}</span>
-            <span className="select-shell flex h-12 items-center justify-between rounded-lg bg-[#f3f3f3] px-4 text-sm text-neutral-700">
+            <span className="select-shell flex h-12 items-center justify-between rounded-lg bg-[#d8d0c3] px-4 text-sm text-neutral-700">
               {placeholder}
               {label !== "Looking for" && <ChevronDown size={15} strokeWidth={1.7} />}
             </span>
@@ -365,7 +330,7 @@ function HeroSection() {
   return (
     <section id="home" className="relative pb-24 sm:pb-[118px]">
       <div className="relative min-h-[660px] overflow-hidden">
-        <img src={images.hero} alt="Modern property surrounded by trees" className="hero-image absolute inset-0 h-full w-full object-cover object-center" />
+        <img src={images.hero} alt="Open-plan kitchen and living area in Johannesburg property for sale" className="hero-image absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/16 to-black/68" />
         <Header />
 
@@ -377,181 +342,16 @@ function HeroSection() {
           </div>
           <div className="grid items-end gap-6 lg:grid-cols-[1.25fr_0.75fr]">
             <h1 className="animate-rise max-w-[820px] text-balance text-[46px] font-light leading-[0.98] tracking-[-0.035em] sm:text-[70px] lg:text-[76px]">
-              Build Your Future, One Property at a Time.
+              Property for Sale in Johannesburg, Gauteng
             </h1>
             <p className="animate-rise animation-delay-2 max-w-[470px] text-pretty pb-2 text-base font-medium leading-7 text-white">
-              Own your world, one property at a time. Discover homes, apartments, and investment properties designed around your lifestyle and goals.
+              Browse houses, apartments, and secure estate homes in Johannesburg, Soweto, Randburg, North Riding, Lion Pride, Sandton, Fourways, Bryanston, Midrand, and surrounding Gauteng areas.
             </p>
           </div>
         </SectionContainer>
       </div>
       <SearchPanel />
     </section>
-  );
-}
-
-function ServicesSection() {
-  return (
-    <section id="about-us" className="bg-white pb-20 pt-2 sm:pb-24">
-      <SectionContainer>
-        <div className="mb-12 grid gap-8 lg:grid-cols-[1fr_350px] lg:items-start">
-          <h2 data-reveal className="max-w-[640px] text-balance text-[42px] font-medium leading-[0.98] tracking-[-0.035em] sm:text-[56px]">
-            Your primary home might begin to feel left out.
-          </h2>
-          <div data-reveal data-reveal-delay="1" className="flex items-center gap-4 justify-self-start lg:justify-self-end">
-            <div className="relative h-[74px] w-[124px] overflow-hidden rounded-xl">
-              <img src={images.preview} alt="Preview of a landscaped property" className="h-full w-full object-cover" />
-              <span className="play-button absolute inset-0 m-auto flex h-9 w-9 items-center justify-center rounded-full bg-white text-black">
-                <Play size={14} fill="currentColor" />
-              </span>
-            </div>
-            <p className="max-w-[260px] text-sm leading-snug text-neutral-700">
-              Each listing offers unique features, exceptional quality, and prime locations
-            </p>
-          </div>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-[1.12fr_0.55fr_0.55fr] lg:items-center">
-          <div data-reveal className="image-card relative min-h-[360px] overflow-hidden rounded-[14px] sm:min-h-[470px]">
-            <img src={images.serviceLarge} alt="Luxury family home exterior" className="h-full min-h-[360px] w-full object-cover transition-transform duration-700 ease-[var(--ease-out)] sm:min-h-[470px]" />
-            <div className="absolute bottom-6 right-6 rounded-lg bg-white p-2 shadow-lg">
-              <div className="flex gap-1">
-                {[images.preview, images.homeTwo, images.homeThree].map((image) => (
-                  <img key={image} src={image} alt="" className="h-11 w-11 rounded-full border-2 border-white object-cover" />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div data-reveal data-reveal-delay="1" className="interactive-card rounded-xl bg-neutral-100 px-8 py-12 text-center lg:min-h-[300px]">
-            <h3 className="mx-auto mb-5 max-w-[240px] text-balance text-[28px] font-medium leading-[0.98] tracking-[-0.025em]">
-              Big things can happen in small spaces.
-            </h3>
-            <p className="mx-auto mb-8 max-w-[230px] text-sm leading-relaxed text-neutral-700">
-              With thoughtful design and smart organization, you can maximize every inch, making room for creativity.
-            </p>
-            <Button variant="outline" className="h-10 px-6 text-xs">
-              Details
-            </Button>
-          </div>
-
-          <div data-reveal data-reveal-delay="2" className="text-center">
-            <div className="image-card mb-6 overflow-hidden rounded-xl">
-              <img src={images.serviceSmall} alt="Modern property with terrace" className="h-[235px] w-full object-cover transition-transform duration-700 ease-[var(--ease-out)]" />
-            </div>
-            <p className="mb-5 text-lg text-neutral-800">Pricing Start at R256K</p>
-            <Button variant="dark" className="h-11 px-7 text-xs">
-              Explore Properties <ArrowRight size={14} />
-            </Button>
-          </div>
-        </div>
-
-        <div className="mt-5 grid gap-5 lg:grid-cols-[1.12fr_1.1fr] lg:items-center">
-          <div />
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="max-w-[520px] text-sm leading-relaxed text-neutral-700">
-              Whether it's creating a cozy corner for relaxation or transforming a small area into a workspace
-            </p>
-            <div className="flex gap-3">
-              <button aria-label="Previous property" className="interactive-button flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 hover:border-black">
-                <ArrowLeft size={16} />
-              </button>
-              <button aria-label="Next property" className="interactive-button flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 hover:border-black">
-                <ArrowRight size={16} />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <StatsRow />
-      </SectionContainer>
-    </section>
-  );
-}
-
-function StatsRow() {
-  return (
-    <div data-reveal className="mt-24 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-      {stats.map((stat, index) => (
-        <div
-          key={stat.label}
-          className={cn("lg:px-16", index > 0 && "lg:border-l lg:border-neutral-300")}
-        >
-          <CounterStat {...stat} />
-          <p className="mt-3 text-sm text-neutral-700">{stat.label}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function CounterStat({
-  value,
-  suffix,
-  decimals,
-}: {
-  value: number;
-  suffix: string;
-  decimals: number;
-}) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element || started) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.45 },
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, [started]);
-
-  useEffect(() => {
-    if (!started) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      setCount(value);
-      return;
-    }
-
-    let frame = 0;
-    const start = performance.now();
-    const duration = 1350;
-
-    const animate = (now: number) => {
-      const elapsed = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - elapsed, 3);
-      setCount(value * eased);
-
-      if (elapsed < 1) {
-        frame = requestAnimationFrame(animate);
-      } else {
-        setCount(value);
-      }
-    };
-
-    frame = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(frame);
-  }, [started, value]);
-
-  return (
-    <p ref={ref} className="text-[50px] font-medium leading-none tracking-[-0.035em] sm:text-[58px]">
-      {count.toFixed(decimals)}
-      {suffix}
-    </p>
   );
 }
 
@@ -568,9 +368,12 @@ function FeaturedHomesSection() {
               Each listing offers unique features, exceptional quality, and prime locations, ensuring an exclusive living experience.
             </p>
           </div>
-          <Button variant="dark" className="shrink-0 text-xs">
+          <Link
+            href="/properties"
+            className="interactive-button inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-black px-6 text-xs font-medium !text-white hover:bg-neutral-800"
+          >
             See All Properties <ArrowRight size={14} />
-          </Button>
+          </Link>
         </div>
 
         <div className="grid gap-9 lg:grid-cols-3">
@@ -665,7 +468,68 @@ function PropertyCard({
   return (
     <article data-reveal data-reveal-delay={String(index)} className="interactive-property group">
       {cardContent}
+      {href ? (
+        <Link href={href} className="mt-4 inline-block text-sm font-medium underline">
+          View {titlePrefix ? `${titlePrefix} ${title}` : title}
+        </Link>
+      ) : null}
     </article>
+  );
+}
+
+function LocalSeoSection() {
+  return (
+    <section className="bg-white py-20 sm:py-24">
+      <SectionContainer>
+        <div className="grid gap-6 lg:grid-cols-3">
+          <article className="rounded-xl bg-neutral-50 p-6 sm:p-8">
+            <h2 className="text-[30px] font-medium leading-tight tracking-[-0.035em]">
+              Find Houses and Property for Sale in Johannesburg
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-neutral-700">
+              Nqothaka Group Real Estate helps buyers find houses, apartments, and residential
+              properties for sale across Johannesburg and Gauteng. Whether you are a first-time
+              buyer, a growing family, or an investor, you can explore listings by price,
+              location, bedrooms, bathrooms, and lifestyle needs. Popular areas include Sandton,
+              Soweto, Randburg, North Riding, Lion Pride, Fourways, Bryanston, Midrand, and
+              Johannesburg South.
+            </p>
+            <Link href="/properties" className="mt-6 inline-block text-sm font-medium underline">
+              View houses for sale in Johannesburg
+            </Link>
+          </article>
+
+          <article className="rounded-xl bg-neutral-50 p-6 sm:p-8">
+            <h2 className="text-[30px] font-medium leading-tight tracking-[-0.035em]">
+              Looking for a House for Sale in Soweto?
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-neutral-700">
+              If you are searching for a house for sale in Soweto, Nqothaka Group Real Estate
+              can help you compare available homes, prices, locations, and bond repayment
+              estimates. Soweto is popular with first-time buyers, families, and investors
+              looking for accessible residential property near Johannesburg.
+            </p>
+            <Link href="/soweto" className="mt-6 inline-block text-sm font-medium underline">
+              Find a house for sale in Soweto
+            </Link>
+          </article>
+
+          <article className="rounded-xl bg-neutral-50 p-6 sm:p-8">
+            <h2 className="text-[30px] font-medium leading-tight tracking-[-0.035em]">
+              Helpful for First-Time Buyers
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-neutral-700">
+              Compare bond repayment estimates, plan for a deposit, understand transfer and bond
+              registration costs, book private viewings, and compare location, security, schools,
+              shopping centres, and transport routes before you choose a home.
+            </p>
+            <Link href="/#contact-us" className="mt-6 inline-block text-sm font-medium underline">
+              Book a Private Viewing in Johannesburg
+            </Link>
+          </article>
+        </div>
+      </SectionContainer>
+    </section>
   );
 }
 
@@ -738,7 +602,7 @@ function FAQSection() {
         </div>
 
         <div className="grid gap-4">
-          {faqs.map((faq, index) => (
+          {faqItems.map((faq, index) => (
             <FAQAccordionItem
               key={faq.question}
               faq={faq}
@@ -792,7 +656,7 @@ function ContactCTA() {
         <div className="absolute inset-0 bg-black/48" />
         <div data-reveal className="relative z-10 mx-auto flex min-h-[350px] max-w-[850px] flex-col items-center justify-center px-5 text-center text-white">
           <h2 className="text-balance text-[42px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[58px]">
-            Ready to Make Your Dream Property a Reality?
+            Book a Private Viewing in Johannesburg
           </h2>
           <p className="mt-5 text-sm">Explore a curated selection of properties that align with your vision and goals.</p>
           <Button variant="light" className="mt-8 text-xs">
@@ -804,30 +668,135 @@ function ContactCTA() {
   );
 }
 
+function WhatsAppContactForm() {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "").trim();
+    const surname = String(formData.get("surname") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const whatsapp = String(formData.get("whatsapp") ?? "").trim();
+
+    const message = [
+      "Hello Nqothaka Group, I would like you to contact me.",
+      "",
+      `Name: ${name}`,
+      `Surname: ${surname}`,
+      `Email: ${email}`,
+      `WhatsApp number: ${whatsapp}`,
+    ].join("\n");
+
+    window.open(
+      `https://wa.me/${seoConfig.phone.replace("+", "")}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="grid gap-4 rounded-xl border border-neutral-200 bg-neutral-50 p-5 shadow-[0_22px_60px_rgb(0_0_0_/_0.07)] sm:p-6"
+    >
+      <div>
+        <h3 className="text-[26px] font-medium tracking-[-0.035em]">Send your details</h3>
+        <p className="mt-2 text-sm leading-relaxed text-neutral-700">
+          Fill in your details and WhatsApp will open with a ready-to-send message.
+        </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="grid gap-2 text-sm font-medium">
+          Name
+          <input
+            required
+            name="name"
+            autoComplete="given-name"
+            className="h-12 rounded-lg border border-neutral-200 bg-white px-4 text-sm outline-none transition focus:border-black focus:ring-2 focus:ring-[var(--accent)]"
+            placeholder="Your name"
+          />
+        </label>
+        <label className="grid gap-2 text-sm font-medium">
+          Surname
+          <input
+            required
+            name="surname"
+            autoComplete="family-name"
+            className="h-12 rounded-lg border border-neutral-200 bg-white px-4 text-sm outline-none transition focus:border-black focus:ring-2 focus:ring-[var(--accent)]"
+            placeholder="Your surname"
+          />
+        </label>
+      </div>
+
+      <label className="grid gap-2 text-sm font-medium">
+        Email
+        <input
+          required
+          type="email"
+          name="email"
+          autoComplete="email"
+          className="h-12 rounded-lg border border-neutral-200 bg-white px-4 text-sm outline-none transition focus:border-black focus:ring-2 focus:ring-[var(--accent)]"
+          placeholder="you@example.com"
+        />
+      </label>
+
+      <label className="grid gap-2 text-sm font-medium">
+        WhatsApp number
+        <input
+          required
+          type="tel"
+          name="whatsapp"
+          autoComplete="tel"
+          className="h-12 rounded-lg border border-neutral-200 bg-white px-4 text-sm outline-none transition focus:border-black focus:ring-2 focus:ring-[var(--accent)]"
+          placeholder="+27 83 000 0000"
+        />
+      </label>
+
+      <button
+        type="submit"
+        className="interactive-button mt-2 inline-flex h-12 items-center justify-center rounded-lg bg-black px-6 text-sm font-medium text-white transition hover:bg-neutral-800"
+      >
+        Send via WhatsApp
+      </button>
+    </form>
+  );
+}
+
 function Footer() {
-  const left = ["Home", "About", "Properties", "Services"];
-  const right = ["Gallery", "FAQ", "Pricing", "Contact"];
+  const left = [
+    ["Houses for Sale in Johannesburg", "/properties"],
+    ["House for Sale in Soweto", "/soweto"],
+    ["Property for Sale in Randburg", "/properties"],
+  ];
+  const right = [
+    ["Houses for Sale in North Riding", "/properties/north-riding-elias-cassime"],
+    ["Contact Johannesburg Estate Agents", "/contact"],
+  ];
 
   return (
     <footer className="bg-white">
-      <SectionContainer className="grid gap-8 border-b border-neutral-200 py-12 lg:grid-cols-[1fr_270px]">
-        <h2 className="max-w-[670px] text-balance text-[42px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[58px]">
-          Discover Nature's Wonders with Expert Guidance
-        </h2>
-        <address className="not-italic text-base leading-relaxed">
-          <p>90 Rivonia Road, Sandton, Johannesburg, 2196.</p>
-          <p className="mt-4">(+1)839-849-8483</p>
-          <a className="mt-4 block hover:underline" href="mailto:info@nqothakagroup.co.za">
-            info@nqothakagroup.co.za
-          </a>
-        </address>
+      <SectionContainer className="grid gap-8 border-b border-neutral-200 py-12 lg:grid-cols-[0.85fr_1fr] lg:items-start">
+        <div>
+          <h2 className="max-w-[670px] text-balance text-[42px] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[58px]">
+            Contact Us
+          </h2>
+          <address className="mt-8 max-w-sm not-italic text-base leading-relaxed">
+            <p>90 Rivonia Road, Sandton, Johannesburg, 2196.</p>
+            <p className="mt-4">+27 83 632 9886</p>
+            <a className="mt-4 block hover:underline" href="mailto:info@nqothakagroup.co.za">
+              info@nqothakagroup.co.za
+            </a>
+          </address>
+        </div>
+        <WhatsAppContactForm />
       </SectionContainer>
       <SectionContainer className="flex flex-col gap-6 py-8 text-xs sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-7">
-          {left.map((item) => (
-            <a key={item} href="#" className="hover:underline">
-              {item}
-            </a>
+          {left.map(([label, href]) => (
+            <Link key={label} href={href} className="hover:underline">
+              {label}
+            </Link>
           ))}
         </div>
         <a href="#" aria-label="Nqothaka Group Real Estate">
@@ -838,10 +807,10 @@ function Footer() {
           />
         </a>
         <div className="flex flex-wrap gap-7">
-          {right.map((item) => (
-            <a key={item} href="#" className="hover:underline">
-              {item}
-            </a>
+          {right.map(([label, href]) => (
+            <Link key={label} href={href} className="hover:underline">
+              {label}
+            </Link>
           ))}
         </div>
       </SectionContainer>
@@ -881,7 +850,7 @@ export default function HomePage() {
     <main className="min-h-screen overflow-x-hidden bg-white">
       <HeroSection />
       <FeaturedHomesSection />
-      <ServicesSection />
+      <LocalSeoSection />
       <ReviewsSection />
       <FAQSection />
       <ContactCTA />

@@ -13,7 +13,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, propertyJsonLd, siteUrl } from "@/lib/seo";
 import BondCalculator from "../BondCalculator";
 import PhotoGallery from "../blue-park-gardens/PhotoGallery";
 
@@ -55,45 +58,74 @@ const property = {
 const gallery = [
   {
     src: "https://images.pp.co.za/listing/11891677/q0jEKpxwPGh8ZkV36q92b7/1600/1066/contain/jpegorpng",
-    alt: "Main listing image for 3 Bedroom House in North Riding",
+    alt: "Exterior of 3 bedroom house for sale in North Riding",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/s79gqJKGhKsIP9VF7LX2t1/1024/682/contain/jpegorpng",
-    alt: "North Riding property gallery image",
+    alt: "Open-plan living area in North Riding family home",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/HPcygMoV2js9qpmBqu9065/1024/682/contain/jpegorpng",
-    alt: "North Riding property interior image",
+    alt: "Interior of 3 bedroom house in North Riding",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/Rt4PllPufQzzQAsIONeBu6/600/450/contain/jpegorpng",
-    alt: "North Riding property room image",
+    alt: "Room in North Riding 3 bedroom home",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/kcXfdXue4GMmBZzByIQ5W6/600/450/contain/jpegorpng",
-    alt: "North Riding property bedroom image",
+    alt: "Bedroom in North Riding 3 bedroom house",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/VzP6Jq1Z0VPQXkaFOODoW2/600/450/contain/jpegorpng",
-    alt: "North Riding property bathroom image",
+    alt: "Bathroom in North Riding 3 bedroom house",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/yCkHFuUeFwHRaq2IalYMZ0/600/450/contain/jpegorpng",
-    alt: "North Riding property living image",
+    alt: "Living area in North Riding house for sale",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/wMoqhPpFhDDpQtkz6rhKa6/600/450/contain/jpegorpng",
-    alt: "North Riding property exterior image",
+    alt: "Exterior view of North Riding house for sale",
   },
   {
     src: "https://images.pp.co.za/listing/11891677/sBb5t7WUgwe4PT7Tt697R1/600/450/contain/jpegorpng",
-    alt: "North Riding property additional image",
+    alt: "Additional view of North Riding residential property",
   },
 ];
 
+export const metadata: Metadata = {
+  title: "3 Bedroom House for Sale in North Riding | Nqothaka Group",
+  description:
+    "3 bedroom House for sale in North Riding, Johannesburg or Gauteng. View price, bathrooms, features, location notes, bond estimate, gallery, and book a private viewing.",
+  alternates: {
+    canonical: siteUrl("/properties/north-riding-elias-cassime"),
+  },
+  openGraph: {
+    title: "3 Bedroom House for Sale in North Riding | Nqothaka Group",
+    description:
+      "View this 3 bedroom House for sale in North Riding with price, gallery, features, and bond estimate.",
+    url: siteUrl("/properties/north-riding-elias-cassime"),
+    type: "website",
+    images: [{ url: gallery[0].src, alt: gallery[0].alt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "3 Bedroom House for Sale in North Riding | Nqothaka Group",
+    description:
+      "View price, gallery, features, and bond estimate for this 3 bedroom House in North Riding.",
+    images: [gallery[0].src],
+  },
+};
+
 export default function NorthRidingEliasCassimePage() {
+  const residenceSchema = propertyJsonLd("north-riding-elias-cassime");
+  const breadcrumbSchema = breadcrumbJsonLd("north-riding-elias-cassime");
+
   return (
-    <main className="min-h-screen bg-[#f5f2ec] text-black">
+    <main className="min-h-screen bg-[#f8f6f1] text-black">
+      {residenceSchema ? <JsonLd data={residenceSchema} /> : null}
+      {breadcrumbSchema ? <JsonLd data={breadcrumbSchema} /> : null}
       <section className="mx-auto flex w-full max-w-[1180px] flex-col gap-8 px-5 pb-20 pt-6 sm:px-8 lg:px-10">
         <Link
           href="/#property-list"
@@ -134,10 +166,10 @@ export default function NorthRidingEliasCassimePage() {
               <span className="rounded-md bg-black px-4 py-2 text-xs font-medium text-white">
                 {property.status}
               </span>
-              <span className="rounded-md bg-[#f5f2ec] px-4 py-2 text-xs font-medium text-neutral-700">
+              <span className="rounded-md bg-[#eee8dd] px-4 py-2 text-xs font-medium text-neutral-700">
                 {property.type}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-md bg-[#f5f2ec] px-4 py-2 text-xs font-medium text-neutral-700">
+              <span className="inline-flex items-center gap-2 rounded-md bg-[#eee8dd] px-4 py-2 text-xs font-medium text-neutral-700">
                 <Images size={14} />
                 {gallery.length} Photos
               </span>
@@ -170,10 +202,10 @@ export default function NorthRidingEliasCassimePage() {
             </div>
 
             <a
-              href="tel:+27000000000"
+              href="tel:+27836329886"
               className="mt-9 inline-flex w-full items-center justify-center rounded-lg bg-black px-6 py-4 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-neutral-800"
             >
-              Enquire about this home
+              Book a private viewing in Johannesburg
             </a>
           </aside>
         </div>
@@ -251,7 +283,7 @@ function DetailPill({
   label: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm font-medium text-neutral-800">
+    <div className="flex items-center gap-3 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm font-medium text-neutral-800">
       {icon}
       {label}
     </div>
@@ -268,7 +300,7 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl bg-[#f5f2ec] px-4 py-4">
+    <div className="flex items-center justify-between gap-4 rounded-xl bg-[#eee8dd] px-4 py-4">
       <span className="flex items-center gap-3 text-neutral-600">
         {icon}
         {label}
@@ -289,7 +321,7 @@ function FeatureMetric({ label, value }: { label: string; value: string }) {
 
 function ChecklistItem({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm leading-relaxed text-neutral-700">
+    <div className="flex items-start gap-3 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm leading-relaxed text-neutral-700">
       <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-black" />
       <span>{children}</span>
     </div>

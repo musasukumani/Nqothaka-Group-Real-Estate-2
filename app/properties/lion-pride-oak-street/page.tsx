@@ -13,7 +13,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, propertyJsonLd, siteUrl } from "@/lib/seo";
 import BondCalculator from "../BondCalculator";
 import PhotoGallery from "../blue-park-gardens/PhotoGallery";
 
@@ -56,45 +59,74 @@ const property = {
 const gallery = [
   {
     src: "https://images.pp.co.za/listing/11846252/C4rZtBlE0g25bIVmSq3s50/1600/1066/contain/jpegorpng",
-    alt: "Main listing image for 3 Bedroom House in Lion Pride",
+    alt: "Exterior of 3 bedroom house for sale in Lion Pride",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/hNMDe8kWppHoRNxzQqHuN5/1024/682/contain/jpegorpng",
-    alt: "Lion Pride property gallery image",
+    alt: "Living space in Lion Pride secure estate home",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/mEoXS0gI9LWbFeoeSLfN27/1024/682/contain/jpegorpng",
-    alt: "Lion Pride property interior image",
+    alt: "Interior of 3 bedroom house in Lion Pride",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/2SJZknyzP9hKDGnl6kcVJ5/600/450/contain/jpegorpng",
-    alt: "Lion Pride property exterior image",
+    alt: "Exterior view of Lion Pride family home",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/Ec96FgAa8orMZymGnt5c12/600/450/contain/jpegorpng",
-    alt: "Lion Pride property room image",
+    alt: "Bedroom in Lion Pride 3 bedroom house",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/O5sixPft7LoZaLIspD7xq0/600/450/contain/jpegorpng",
-    alt: "Lion Pride property bathroom or room image",
+    alt: "Bathroom in Lion Pride 3 bedroom house",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/ONHG5dAD6D7eXeY81bUAq1/600/450/contain/jpegorpng",
-    alt: "Lion Pride property kitchen or living image",
+    alt: "Kitchen and living area in Lion Pride house",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/oq7NljKRSJynAFDKm2Dwc7/600/450/contain/jpegorpng",
-    alt: "Lion Pride property additional image",
+    alt: "Additional interior view of Lion Pride house",
   },
   {
     src: "https://images.pp.co.za/listing/11846252/zHcYdAWndTOkkQJTwLVeM7/600/450/contain/jpegorpng",
-    alt: "Lion Pride property estate image",
+    alt: "Secure estate setting in Lion Pride Randburg",
   },
 ];
 
+export const metadata: Metadata = {
+  title: "3 Bedroom House for Sale in Lion Pride | Nqothaka Group",
+  description:
+    "3 bedroom House for sale in Lion Pride, Johannesburg or Gauteng. View price, bathrooms, features, location notes, bond estimate, gallery, and book a private viewing.",
+  alternates: {
+    canonical: siteUrl("/properties/lion-pride-oak-street"),
+  },
+  openGraph: {
+    title: "3 Bedroom House for Sale in Lion Pride | Nqothaka Group",
+    description:
+      "View this 3 bedroom House for sale in Lion Pride with estate features, price, gallery, and bond estimate.",
+    url: siteUrl("/properties/lion-pride-oak-street"),
+    type: "website",
+    images: [{ url: gallery[0].src, alt: gallery[0].alt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "3 Bedroom House for Sale in Lion Pride | Nqothaka Group",
+    description:
+      "View price, gallery, features, and bond estimate for this 3 bedroom House in Lion Pride.",
+    images: [gallery[0].src],
+  },
+};
+
 export default function LionPrideOakStreetPage() {
+  const residenceSchema = propertyJsonLd("lion-pride-oak-street");
+  const breadcrumbSchema = breadcrumbJsonLd("lion-pride-oak-street");
+
   return (
-    <main className="min-h-screen bg-[#f5f2ec] text-black">
+    <main className="min-h-screen bg-[#f8f6f1] text-black">
+      {residenceSchema ? <JsonLd data={residenceSchema} /> : null}
+      {breadcrumbSchema ? <JsonLd data={breadcrumbSchema} /> : null}
       <section className="mx-auto flex w-full max-w-[1180px] flex-col gap-8 px-5 pb-20 pt-6 sm:px-8 lg:px-10">
         <Link
           href="/#property-list"
@@ -135,10 +167,10 @@ export default function LionPrideOakStreetPage() {
               <span className="rounded-md bg-black px-4 py-2 text-xs font-medium text-white">
                 {property.status}
               </span>
-              <span className="rounded-md bg-[#f5f2ec] px-4 py-2 text-xs font-medium text-neutral-700">
+              <span className="rounded-md bg-[#eee8dd] px-4 py-2 text-xs font-medium text-neutral-700">
                 {property.type}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-md bg-[#f5f2ec] px-4 py-2 text-xs font-medium text-neutral-700">
+              <span className="inline-flex items-center gap-2 rounded-md bg-[#eee8dd] px-4 py-2 text-xs font-medium text-neutral-700">
                 <Images size={14} />
                 {gallery.length} Photos
               </span>
@@ -171,10 +203,10 @@ export default function LionPrideOakStreetPage() {
             </div>
 
             <a
-              href="tel:+27000000000"
+              href="tel:+27836329886"
               className="mt-9 inline-flex w-full items-center justify-center rounded-lg bg-black px-6 py-4 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-neutral-800"
             >
-              Enquire about this home
+              Book a private viewing in Johannesburg
             </a>
           </aside>
         </div>
@@ -252,7 +284,7 @@ function DetailPill({
   label: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm font-medium text-neutral-800">
+    <div className="flex items-center gap-3 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm font-medium text-neutral-800">
       {icon}
       {label}
     </div>
@@ -269,7 +301,7 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl bg-[#f5f2ec] px-4 py-4">
+    <div className="flex items-center justify-between gap-4 rounded-xl bg-[#eee8dd] px-4 py-4">
       <span className="flex items-center gap-3 text-neutral-600">
         {icon}
         {label}
@@ -290,7 +322,7 @@ function FeatureMetric({ label, value }: { label: string; value: string }) {
 
 function ChecklistItem({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl bg-[#f5f2ec] px-4 py-4 text-sm leading-relaxed text-neutral-700">
+    <div className="flex items-start gap-3 rounded-xl bg-[#eee8dd] px-4 py-4 text-sm leading-relaxed text-neutral-700">
       <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-black" />
       <span>{children}</span>
     </div>
