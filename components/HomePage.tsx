@@ -187,13 +187,13 @@ function Header() {
       >
         <a
           href="#"
-          className="inline-flex h-[75px] w-[180px] items-center justify-center drop-shadow-[0_3px_10px_rgb(255_255_255_/_0.72)]"
+          className="inline-flex h-[75px] w-[132px] shrink-0 items-center justify-center drop-shadow-[0_3px_10px_rgb(255_255_255_/_0.72)] sm:w-[180px]"
           aria-label="Nqothaka Group Real Estate"
         >
           <img
             src={images.logo}
             alt="Nqothaka Group Real Estate"
-            className="h-[75px] max-w-none object-contain"
+            className="h-[64px] w-full object-contain sm:h-[75px]"
           />
         </a>
 
@@ -254,7 +254,7 @@ function Header() {
             <img
               src={images.logo}
               alt="Nqothaka Group Real Estate"
-              className="h-[85px] max-w-none object-contain"
+              className="h-[76px] max-w-full object-contain sm:h-[85px]"
             />
             <button
               aria-label="Close menu"
@@ -294,7 +294,7 @@ function SearchPanel() {
   ];
 
   return (
-    <div data-reveal className="relative z-20 mx-auto -mt-[82px] w-[calc(100%-40px)] max-w-[1288px] rounded-xl bg-white p-5 shadow-[0_20px_54px_rgb(0_0_0_/_0.14)] sm:p-8">
+    <div data-reveal className="relative z-20 mx-auto -mt-[82px] w-[calc(100%-24px)] max-w-[1288px] rounded-xl bg-white p-5 shadow-[0_20px_54px_rgb(0_0_0_/_0.14)] sm:w-[calc(100%-40px)] sm:p-8">
       <h2 className="mb-5 text-2xl font-semibold tracking-[-0.015em] sm:text-[28px]">Find the best place</h2>
       <div className="grid gap-4 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end">
         {fields.map(([label, placeholder]) => (
@@ -340,11 +340,11 @@ function HeroSection() {
               <Pill key={item}>{item}</Pill>
             ))}
           </div>
-          <div className="grid items-end gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-            <h1 className="animate-rise max-w-[820px] text-balance text-[46px] font-light leading-[0.98] tracking-[-0.035em] sm:text-[70px] lg:text-[76px]">
-              Property for Sale in Johannesburg, Gauteng
+          <div className="grid min-w-0 items-end gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+            <h1 className="animate-rise w-full max-w-full text-[34px] font-light leading-[1.04] tracking-[-0.02em] [text-wrap:normal] sm:max-w-[820px] sm:text-balance sm:text-[70px] sm:leading-[0.98] sm:tracking-[-0.035em] lg:text-[76px]">
+              Property for Sale in Johannesburg, <span className="block sm:inline">Gauteng</span>
             </h1>
-            <p className="animate-rise animation-delay-2 max-w-[470px] text-pretty pb-2 text-base font-medium leading-7 text-white">
+            <p className="animate-rise animation-delay-2 w-full max-w-full pb-2 text-sm font-medium leading-6 text-white [text-wrap:normal] sm:max-w-[470px] sm:text-pretty sm:text-base sm:leading-7">
               Browse houses, apartments, and secure estate homes in Johannesburg, Soweto, Randburg, North Riding, Lion Pride, Sandton, Fourways, Bryanston, Midrand, and surrounding Gauteng areas.
             </p>
           </div>
@@ -803,7 +803,7 @@ function Footer() {
           <img
             src={images.logo}
             alt="Nqothaka Group Real Estate"
-            className="h-[85px] max-w-none object-contain"
+            className="h-[85px] max-w-full object-contain"
           />
         </a>
         <div className="flex flex-wrap gap-7">

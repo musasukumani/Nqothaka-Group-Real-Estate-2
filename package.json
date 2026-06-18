@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "next dev",
+    "dev": "set NEXT_OUTPUT_DIR=.next-dev&& next dev",
     "build": "next build",
     "build:local": "set NEXT_OUTPUT_DIR=.next-production&& next build",
     "start": "next start",

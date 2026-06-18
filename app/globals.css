@@ -37,6 +37,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -48,6 +49,7 @@ body {
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
 button,
@@ -63,6 +65,19 @@ button {
 img {
   display: block;
   max-width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+button,
+span {
+  overflow-wrap: break-word;
 }
 
 a {
@@ -327,5 +342,13 @@ a {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+}
+
+@media (max-width: 639px) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }

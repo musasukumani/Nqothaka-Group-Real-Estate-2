@@ -3,6 +3,7 @@ node_modules/
 
 # next.js
 .next/
+.next-dev/
 .next-production/
 out/
 
@@ -18,6 +19,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+next-dev*.log
 
 # local env files
 .env
