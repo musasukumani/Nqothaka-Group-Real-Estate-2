@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:local": "set NEXT_OUTPUT_DIR=.next-production&& next build",
     "start": "next start",
     "lint": "next lint"
   },
